@@ -5,20 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class damageText : MonoBehaviour
 {
-    public GameObject text;
-    private GameObject textClone;
-    //private GameObject textLevelClone;
-    public float level;
-    public float floor;
-   
+    public GameObject text, textClone;
+    public float level, floor;   
     
     void Start()
     {
-        
         level = 1;
         floor = 1;
-        
     }
+    
+    //Changes the background and creates a new enemy when a boss is beaten
     IEnumerator bossBeaten (float level, float floor)
     {
         GameObject enemy = GameObject.Find("Minion");
@@ -30,6 +26,8 @@ public class damageText : MonoBehaviour
         
         enemyScr.newMinionFunction(level, floor);
     }
+    
+    
     IEnumerator movePlayerShell ()
     {
         GameObject shell = GameObject.Find("PlayerShellAlt");
