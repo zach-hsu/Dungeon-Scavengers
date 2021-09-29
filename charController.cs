@@ -7,55 +7,34 @@ public class charController : MonoBehaviour
     public Animator animator;
     public GameObject charUsed;
 
-    public bool playerAttacking;//indicates if player is currently attacking
-    public bool playerSwitching;//indicates if player is currently switching
-    public bool playerTurn;//indicates if its players turn
+    public bool playerAttacking,  //indicates if player is currently attacking
+                playerSwitching,  //indicates if player is currently switching
+                playerTurn;       //indicates if its players turn
 
-    public float enemyX;
-    public float enemyY;
+    public float enemyX, enemyY;
 
     //Player 1 Stats
-    public int player1;
-    public float player1Attack;
-    public float player1MaxHealth;
-    public float player1Health;
-    public int player1Level;
-    public int player1Exp;
+    public int player1, player1Level, player1Exp;
+    public float player1Attack, player1MaxHealth, player1Health;
 
     //Player 2 Stats
-    public int player2;
-    public float player2Attack;
-    public float player2MaxHealth;
-    public float player2Health;
-    public int player2Level;
-    public int player2Exp;
+    public int player2, player2Level, player2Exp;
+    public float player2Attack, player2MaxHealth, player2Health;
 
     //Player 3 Stats
-    public int player3;
-    public float player3Attack;
-    public float player3MaxHealth;
-    public float player3Health;
-    public int player3Level;
-    public int player3Exp;
+    public int player3, player3Level, player3Exp;
+    public float player3Attack, player3MaxHealth, player3Health;
 
     //Player 4 Stats
-    public int player4;
-    public float player4Attack;
-    public float player4MaxHealth;
-    public float player4Health;
-    public int player4Level;
-    public int player4Exp;
+    public int player4, player4Level, player4Exp;
+    public float player4Attack, player4MaxHealth, player4Health;
 
-    public int playerAlt;
-    public float playerAltAttack;
-    public float playerAltMaxHealth;
-    public float playerAltHealth;
-    public int playerAltLevel;
-    public int playerAltExp;
+    public int playerAlt, playerAltLevel, playerAltExp;
+    public float playerAltAttack, playerAltMaxHealth, playerAltHealth;
 
     void Start()
     {
-    player1Exp = 0;
+        player1Exp = 0;
         player2 = 0;
         player2Attack = 0;
         player2MaxHealth = 0;
@@ -81,7 +60,7 @@ public class charController : MonoBehaviour
         playerAltLevel = 0;
         playerAltExp = 0;
 //----------------------------------------------------//
-    enemyX = 1.5f;
+        enemyX = 1.5f;
         enemyY = 1.5f;
         player1Level = 1;
         playerTurn = true;
@@ -89,19 +68,19 @@ public class charController : MonoBehaviour
         playerSwitching = false;
         player1Health = player1MaxHealth;
         newPlayerFunction();
-        
-
     }
+    
+    //Monster enters battlefield from the left
     IEnumerator entrance(GameObject playerMoved)
     {
         while (transform.position.x <= -1.75)
         {
             playerMoved.transform.Translate(new Vector2(1, 0) * 0.25f);
             yield return 0;
-
         }
-
     }
+    
+    //Monster leaves battlefield
     IEnumerator exit(GameObject playerMoved)
     {
         while (transform.position.x >= -5)
@@ -112,7 +91,8 @@ public class charController : MonoBehaviour
         }
         StartCoroutine(entrance(playerMoved));
     }
-
+    
+    //Creates a new monster for the player
     public void newPlayerFunction()
     {
         int random = Random.Range(1, 9);
@@ -161,6 +141,7 @@ public class charController : MonoBehaviour
         StartCoroutine(entrance(charUsed));
     }
 
+    //Sets the Monster's Attack 
     public int statCalcAttack(int playerBase, int playerLevel)
     {
         int attack = 30;
@@ -202,6 +183,8 @@ public class charController : MonoBehaviour
         attack = attack * playerLevel;
         return attack;
     }
+    
+    //Sets the Monster's Maximum Health
     public int statCalcMaxHealth(int playerBase, int playerLevel)
     {
         int health = 200;
@@ -399,26 +382,20 @@ public class charController : MonoBehaviour
         yield return new WaitForSeconds(1);
         
     }
-
+    
+    //Move the player
     IEnumerator playerAttack(GameObject charMoved)
     {
         while (charMoved.transform.position.x <= -0)
         {
             charMoved.transform.Translate(new Vector2(1, 0) * 0.25f);
             yield return 0;
-
         }
-       
-
         playerAttacking = true;
-
         while (charMoved.transform.position.x >= (-1.5f + 0.25f))
         {
             charMoved.transform.Translate(new Vector2(-1, 0) * 0.25f);
             yield return 0;
-
         }
-        
-        
     }
 }
